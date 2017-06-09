@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static android.R.attr.color;
 import static android.R.attr.name;
 import static android.support.design.widget.Snackbar.make;
 
@@ -32,7 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
     private WebView wv1;
     EditText my_edit_text;
-
+String url_1 = "http://dreamgoals.info/cl_post_doug/time_check.php?email_x=email_111222&pass_x=pass_111222";
+String url_2 = "http://dreamgoals.info/cl_post_doug/time_check.php?email_x=email_replace&pass_x=pass_replace";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
         wv1.setWebChromeClient(new WebChromeClient());
 wv1.getSettings().setJavaScriptEnabled(true);
 
+        Button b_main_url_1_x = (Button)findViewById(R.id.b_main_url_1);
+        b_main_url_1_x.setText(url_1);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -55,11 +59,12 @@ wv1.getSettings().setJavaScriptEnabled(true);
 //                        //.setAction("Action", null).show();
 //                        // Snackbar.make(view, "You can put text here", Snackbar.LENGTH_SHORT)
 //                        .setAction("Action", null).dismiss();
-
+                   close_snackbar();
             }
 
         });
     }
+
 
 
 
@@ -116,7 +121,8 @@ wv1.getSettings().setJavaScriptEnabled(true);
         if (the_id == R.id.but_send) {
             Toast.makeText(this, "Send", Toast.LENGTH_SHORT).show();
             //wv1.evaluateJavascript("(function(){return document.getElementById('secretcode').value})();",
-            wv1.evaluateJavascript("(function(){return document.getElementById('span_now_epoch').innerHTML})();",
+            String id_to_read = "span_now_epoch";
+            wv1.evaluateJavascript("(function(){return document.getElementById('"+id_to_read+"').innerHTML})();",
             new ValueCallback<String>() {
             @Override
             public void onReceiveValue(String passed_x) {
@@ -128,6 +134,10 @@ wv1.getSettings().setJavaScriptEnabled(true);
             my_tv_data.setText(passed_x);
             }
             });
+            //set the button text to show what the id is your reading
+            Button my_b_main_url_1 = (Button) findViewById(R.id.but_send);
+            my_b_main_url_1.setText(id_to_read);
+
             }
         if (the_id == R.id.b_wake_on) {
             //Toast.makeText(this, "b_wake_on", Toast.LENGTH_SHORT).show();
@@ -147,7 +157,8 @@ wv1.getSettings().setJavaScriptEnabled(true);
         if (the_id == R.id.b_wake_off) {
 
             Snackbar my_snackbar = Snackbar.make(this.findViewById(android.R.id.content), "byer bye", Snackbar.LENGTH_INDEFINITE);
-
+            //my_snackbar.setActionTextColor(0xff2195f3);
+            //.setDuration(4000).show();
             my_snackbar.setDuration(1);
             my_snackbar.show();
 
@@ -158,16 +169,17 @@ wv1.getSettings().setJavaScriptEnabled(true);
         }
         if (the_id == R.id.b_main_url_1) {
             Button my_b_main_url_1 = (Button) findViewById(R.id.b_main_url_1);
-            String url_1_text = String.valueOf(my_b_main_url_1.getText());
+            my_b_main_url_1.setText(url_1);
+            //String url_1_text = String.valueOf(my_b_main_url_1.getText());
             //Toast.makeText(this, "b_main_url_1" + url_1_text, Toast.LENGTH_SHORT).show();
-            wv1.loadUrl(url_1_text);
+            wv1.loadUrl(url_1);
         }
 
         if (the_id == R.id.b_main_url_2) {
             Button my_b_main_url_2 = (Button) findViewById(R.id.b_main_url_2);
-            String url_2_text = String.valueOf(my_b_main_url_2.getText());
+            my_b_main_url_2.setText(url_2);
             //Toast.makeText(this, "b_main_url_2" + url_2_text, Toast.LENGTH_SHORT).show();
-            wv1.loadUrl(url_2_text);
+            wv1.loadUrl(url_2);
         }
     }
         //end button clicks------------------------------------------------------------------
@@ -263,6 +275,13 @@ int time_keep = 0;
       Button b_alarm_clock_view_x = (Button)findViewById(R.id.b_alarm_clock_view);
       b_alarm_clock_view_x.setText(String.valueOf(DateUtils.formatElapsedTime(time_keep)));
 
+    }
+    public void close_snackbar(){
+            Snackbar my_snackbar = Snackbar.make(this.findViewById(android.R.id.content), "byer bye", Snackbar.LENGTH_INDEFINITE);
+            //my_snackbar.setActionTextColor(0xff2195f3);
+            //.setDuration(4000).show();
+            my_snackbar.setDuration(1);
+            my_snackbar.show();
     }
 
 }
