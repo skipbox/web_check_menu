@@ -38,23 +38,22 @@
 
     </LinearLayout>
 
+    <Button
+         android:onClick="buttonOnClick"
+        android:text="Read(by_id)"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:id="@+id/but_send" />
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
-             android:onClick="buttonOnClick"
-            android:text="Read(by_id)"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/but_send"
-            android:layout_weight="1" />
-
         <TextView
             android:text="TextView"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="29dp"
             android:id="@+id/tv_data"
             android:layout_weight="0.04"
             android:textColor="@android:color/holo_green_dark"
@@ -66,7 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:id="@+id/my_webview"
-        android:layout_weight="1.33" >
+        android:layout_weight="1.22" >
 
     </WebView>
 
@@ -75,7 +74,8 @@
         android:text="http://autojacker.com/"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/b_main_url_1" />
+        android:id="@+id/b_main_url_1"
+        tools:textSize="8sp" />
 
     <Button
         android:onClick="buttonOnClick"
@@ -154,6 +154,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/but_clear"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="43dp">
+
+        <Button
+            android:text="but_android_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/but_android_time"
             android:layout_weight="1" />
     </LinearLayout>
 

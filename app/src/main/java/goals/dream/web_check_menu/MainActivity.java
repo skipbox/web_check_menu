@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
@@ -23,8 +24,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Date;
+
 import static android.R.attr.color;
 import static android.R.attr.name;
+import static android.R.attr.toAlpha;
 import static android.support.design.widget.Snackbar.make;
 
 //<uses-permission android:name="android.permission.INTERNET" />
@@ -35,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     EditText my_edit_text;
 String url_1 = "http://dreamgoals.info/cl_post_doug/time_check.php?email_x=email_111222&pass_x=pass_111222";
 String url_2 = "http://dreamgoals.info/cl_post_doug/time_check.php?email_x=email_replace&pass_x=pass_replace";
+String time_now_from_button = "time_now_from_button goes here";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +55,15 @@ wv1.getSettings().setJavaScriptEnabled(true);
         Button b_main_url_1_x = (Button)findViewById(R.id.b_main_url_1);
         b_main_url_1_x.setText(url_1);
 
+        set_android_time();
+
+
+                //playButton.setVisibility(View.GONE);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
+         fab.setVisibility(View.GONE);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,7 +134,9 @@ wv1.getSettings().setJavaScriptEnabled(true);
         if (the_id == R.id.but_send) {
             Toast.makeText(this, "Send", Toast.LENGTH_SHORT).show();
             //wv1.evaluateJavascript("(function(){return document.getElementById('secretcode').value})();",
-            String id_to_read = "span_now_epoch";
+
+
+            String id_to_read = "span_android_time";
             wv1.evaluateJavascript("(function(){return document.getElementById('"+id_to_read+"').innerHTML})();",
             new ValueCallback<String>() {
             @Override
@@ -172,7 +187,11 @@ wv1.getSettings().setJavaScriptEnabled(true);
             my_b_main_url_1.setText(url_1);
             //String url_1_text = String.valueOf(my_b_main_url_1.getText());
             //Toast.makeText(this, "b_main_url_1" + url_1_text, Toast.LENGTH_SHORT).show();
-            wv1.loadUrl(url_1);
+
+
+            //Toast.makeText(this, "time_now_from_button ---" + time_now_from_button, Toast.LENGTH_SHORT).show();
+            wv1.loadUrl(url_1+"&android_x="+time_now_from_button);
+
         }
 
         if (the_id == R.id.b_main_url_2) {
@@ -248,6 +267,11 @@ Boolean pause_play_subcount = Boolean.TRUE;
                     alarm_count_go();
 
 
+                    set_android_time();
+                    Button but_android_time_x = (Button)findViewById(R.id.but_android_time);
+                    time_now_from_button = String.valueOf(but_android_time_x.getText());
+
+
                     if (count_x <= -1){
                         count_x = 30;
                         Toast.makeText(MainActivity.this, "count_x = "+count_x, Toast.LENGTH_SHORT).show();
@@ -282,6 +306,14 @@ int time_keep = 0;
             //.setDuration(4000).show();
             my_snackbar.setDuration(1);
             my_snackbar.show();
+    }
+
+    public void set_android_time(){
+        Date my_date = new Date();
+        CharSequence sss = DateFormat.format("yyyy-MM-dd hh:mm:ss", my_date.getTime());
+        time_now_from_button = (String.valueOf(sss));
+        Button but_android_time_x = (Button)findViewById(R.id.but_android_time);
+        but_android_time_x.setText(String.valueOf(sss));
     }
 
 }
