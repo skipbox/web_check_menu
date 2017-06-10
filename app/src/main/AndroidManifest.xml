@@ -31,6 +31,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="goals.dream.web_check_menu.MainActivity" />
         </activity>
+
+        <receiver android:name=".AlertReceiver"/>
+
     </application>
 
 </manifest>

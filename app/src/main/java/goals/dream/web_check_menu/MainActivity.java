@@ -1,5 +1,8 @@
 package goals.dream.web_check_menu;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
@@ -26,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import static android.R.attr.color;
 import static android.R.attr.name;
@@ -36,7 +40,7 @@ import static android.support.design.widget.Snackbar.make;
 //<uses-permission android:name="android.permission.WAKE_LOCK"/>
 public class MainActivity extends AppCompatActivity {
 
-    private WebView wv1;
+    public WebView wv1;
     EditText my_edit_text;
     String url_1 = "http://dreamgoals.info/cl_post_doug/time_check.php?email_x=email_111222&pass_x=pass_111222";
     String url_2 = "http://dreamgoals.info/cl_post_doug/time_check.php?email_x=email_replace&pass_x=pass_replace";
@@ -60,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
 
         set_android_time();
 
-        Toast.makeText(this, "timer_go-disable button", Toast.LENGTH_SHORT).show();
-        timer_go();
+        //Toast.makeText(this, "timer_go-disable button", Toast.LENGTH_SHORT).show();
+        //timer_go();
 
 
                 //playButton.setVisibility(View.GONE);
@@ -204,6 +208,30 @@ public class MainActivity extends AppCompatActivity {
             //Toast.makeText(this, "b_main_url_2" + url_2_text, Toast.LENGTH_SHORT).show();
             wv1.loadUrl(url_2);
         }
+
+        if (the_id == R.id.but_android_time) {
+            // Define a time value of 5 seconds
+            Long alertTime = new GregorianCalendar().getTimeInMillis()+5*1000;
+
+            // Define our intention of executing AlertReceiver
+            Intent alertIntent = new Intent(this, AlertReceiver.class);
+
+            // Allows you to schedule for your application to do something at a later date
+            // even if it is in he background or isn't active
+            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+            // set() schedules an alarm to trigger
+            // Trigger for alertIntent to fire in 5 seconds
+            // FLAG_UPDATE_CURRENT : Update the Intent if active
+            alarmManager.set(AlarmManager.RTC_WAKEUP, alertTime,
+                    PendingIntent.getBroadcast(this, 1, alertIntent,
+                            PendingIntent.FLAG_UPDATE_CURRENT));
+        }
+
+
+
+
+
     }
         //end button clicks------------------------------------------------------------------
 int alarm_time_total = 0;

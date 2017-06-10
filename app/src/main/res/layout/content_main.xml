@@ -163,11 +163,11 @@
         android:layout_height="43dp">
 
         <Button
-            android:text="but_android_time"
+            android:id="@+id/but_android_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/but_android_time"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="but_android_time" />
     </LinearLayout>
 
     <LinearLayout
