@@ -1,6 +1,7 @@
 package goals.dream.web_check_menu;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -37,33 +38,36 @@ public class MainActivity extends AppCompatActivity {
 
     private WebView wv1;
     EditText my_edit_text;
-String url_1 = "http://dreamgoals.info/cl_post_doug/time_check.php?email_x=email_111222&pass_x=pass_111222";
-String url_2 = "http://dreamgoals.info/cl_post_doug/time_check.php?email_x=email_replace&pass_x=pass_replace";
-String time_now_from_button = "time_now_from_button goes here";
+    String url_1 = "http://dreamgoals.info/cl_post_doug/time_check.php?email_x=email_111222&pass_x=pass_111222";
+    String url_2 = "http://dreamgoals.info/cl_post_doug/time_check.php?email_x=email_replace&pass_x=pass_replace";
+    String time_now_from_button = "time_now_from_button goes here";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         wv1=(WebView)findViewById(R.id.my_webview);
         wv1.setWebViewClient(new MyBrowser());
         ///!@#$%
         wv1.setWebChromeClient(new WebChromeClient());
-wv1.getSettings().setJavaScriptEnabled(true);
+        wv1.getSettings().setJavaScriptEnabled(true);
 
         Button b_main_url_1_x = (Button)findViewById(R.id.b_main_url_1);
         b_main_url_1_x.setText(url_1);
 
         set_android_time();
 
+        Toast.makeText(this, "timer_go-disable button", Toast.LENGTH_SHORT).show();
+        timer_go();
+
 
                 //playButton.setVisibility(View.GONE);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-
-         fab.setVisibility(View.GONE);
-
+        fab.setVisibility(View.GONE);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -275,6 +279,7 @@ Boolean pause_play_subcount = Boolean.TRUE;
                     if (count_x <= -1){
                         count_x = 30;
                         Toast.makeText(MainActivity.this, "count_x = "+count_x, Toast.LENGTH_SHORT).show();
+                        wv1.loadUrl(url_1+"&android_x="+time_now_from_button);
                         //speak_this("hello");
 
                     }
